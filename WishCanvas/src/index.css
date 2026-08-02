@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #010B13;
+}
+
+.stars {
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 2px, transparent 2px);
+
+  background-size:
+    180px 180px,
+    260px 260px,
+    320px 320px;
+
+  background-position:
+    0 0,
+    40px 60px,
+    130px 120px;
+
+  animation: twinkle 8s linear infinite;
+  opacity: .7;
+}
+
+@keyframes twinkle {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-30px);
+  }
+}
