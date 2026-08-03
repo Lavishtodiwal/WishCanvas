@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   background-color: #010B13;
-}
+} */
 
 .stars {
   background-image:

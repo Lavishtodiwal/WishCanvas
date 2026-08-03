@@ -4,7 +4,6 @@ import { ChevronDown } from "lucide-react";
 export default function EntryPage() {
   return (
     <section className="relative h-screen overflow-hidden bg-[#050816] flex items-center justify-center">
-
       {/* Animated Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#140b2d] via-[#050816] to-black" />
 
@@ -15,6 +14,11 @@ export default function EntryPage() {
 
       {/* Stars */}
       <div className="stars absolute inset-0"></div>
+      <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-pink-500/20 blur-[180px]" />
+
+      <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-violet-500/20 blur-[220px]" />
+
+      <div className="absolute top-1/2 left-1/2 h-72 w-72 rounded-full bg-cyan-400/10 blur-[200px]" />
 
       {/* Floating Sparkles */}
       <div className="absolute inset-0 overflow-hidden">
@@ -51,7 +55,7 @@ export default function EntryPage() {
         <motion.h1
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
-          transition={{ delay: .3 }}
+          transition={{ delay: 0.3 }}
           className="text-6xl md:text-8xl font-bold text-white"
         >
           ✨
@@ -60,21 +64,27 @@ export default function EntryPage() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: .8 }}
+          transition={{ delay: 0.8 }}
           className="mt-8 text-3xl md:text-5xl font-semibold text-white"
         >
-          I have something
+          I built something
           <br />
-          <span className="text-pink-400">
-            special for you...
-          </span>
+          <span className="text-pink-400">special just for you.</span>
         </motion.p>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="mt-16 text-gray-300 text-lg tracking-wide"
+          className="mt-6 text-gray-400 text-lg tracking-wide"
+        >
+          Ready?
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className=" text-gray-300 text-lg tracking-wide"
         >
           Scroll down to see the magic
         </motion.p>
@@ -87,10 +97,7 @@ export default function EntryPage() {
           }}
           className="mt-4 flex justify-center"
         >
-          <ChevronDown
-            size={40}
-            className="text-pink-400"
-          />
+          <ChevronDown size={40} className="text-pink-400" />
         </motion.div>
       </motion.div>
     </section>
