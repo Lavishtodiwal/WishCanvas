@@ -1,4 +1,4 @@
-function Loader({ label = 'Loading the celebration...' }) {
+function Loader({ label = 'Preparing something special...' }) {
   return (
     <section
       className="flex min-h-screen items-center justify-center bg-slate-950 text-white"

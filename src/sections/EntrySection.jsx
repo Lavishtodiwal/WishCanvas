@@ -2,65 +2,116 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 export default function EntrySection() {
+  const particles = Array.from({ length: 18 });
+
   return (
     <section
       id="home"
-      className="relative h-screen flex flex-col items-center justify-center overflow-hidden text-white"
+      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center px-8 text-center text-white"
     >
-      {/* Floating Sparkles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {particles.map((_, i) => (
           <motion.span
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-white"
-            initial={{
-              opacity: 0,
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 100,
+            className="absolute w-1 h-1 rounded-full bg-white/80"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
             }}
             animate={{
+              y: [-20, -120],
               opacity: [0, 1, 0],
-              y: -100,
+              scale: [0.5, 1.4, 0.5],
             }}
             transition={{
-              duration: 6 + Math.random() * 6,
+              duration: 5 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 5,
+              ease: "easeOut",
             }}
           />
         ))}
       </div>
-      <motion.h1
-        initial={{ opacity: 0, y: -40 }}
+
+      {/* Main Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-5xl md:text-7xl font-extrabold"
+        className="relative z-10 max-w-sm"
       >
-        Hey Beautiful! ✨
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="mt-6 text-xl text-pink-200"
-      >
-        Someone couldn't decide what birthday gift to give you..
-      </motion.p>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="mt-4 text-xl text-pink-200"
-      >
-        so he built an entire website instead. ❤️
-      </motion.p>
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{
+            delay: 0.2,
+            type: "spring",
+            stiffness: 120,
+          }}
+          className="text-5xl mb-8"
+        >
+          ✨
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-5xl font-bold leading-tight"
+        >
+          Happy Birthday
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="mt-8 text-lg text-pink-200 leading-8"
+        >
+          There's something
+          <br />
+          waiting for you...
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="mt-6 text-base text-gray-300 leading-7"
+        >
+          Not just a website,
+          <br />
+          but a little piece of time
+          <br />
+          I wanted to gift you.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2 }}
+          className="mt-10 text-pink-300 font-medium tracking-wide"
+        >
+          Keep scrolling...
+          <br />
+          The best part is still ahead.
+        </motion.p>
+      </motion.div>
+
+      {/* Scroll Indicator */}
       <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5 }}
-        className="absolute bottom-10 flex flex-col items-center"
+        animate={{ y: [0, 10, 0] }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+        }}
+        className="absolute bottom-10 flex flex-col items-center gap-2"
       >
-        <ChevronDown size={35} />
-        <p>Scroll to see the magic</p>
+        <ChevronDown size={28} className="text-pink-400" />
+        <p className="text-sm tracking-widest uppercase text-pink-300">
+          Scroll
+        </p>
       </motion.div>
     </section>
   );
