@@ -1,33 +1,157 @@
-import { useState } from 'react'
+import { motion } from "framer-motion";
+import { Gift } from "lucide-react";
+import { useState } from "react";
 
-function GiftBox({ title, message, revealLabel = 'Open the gift' }) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function GiftBox({ onOpen }) {
+  const [opened, setOpened] = useState(false);
+
+  const handleClick = () => {
+    if (opened) return;
+
+    setOpened(true);
+
+    setTimeout(() => {
+      onOpen?.();
+    }, 900);
+  };
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 text-white backdrop-blur-xl">
-      <button
-        type="button"
-        onClick={() => setIsOpen((value) => !value)}
-        className="group flex w-full flex-col items-center gap-4 rounded-[1.5rem] border border-white/10 bg-slate-950/60 px-6 py-8 transition hover:border-fuchsia-400/50"
-      >
-        <div className="relative h-28 w-28 rounded-[1.5rem] bg-gradient-to-br from-fuchsia-500 via-violet-500 to-cyan-400 shadow-[0_0_50px_rgba(168,85,247,0.35)] transition group-hover:scale-105">
-          <div className="absolute inset-x-0 top-1/2 h-4 -translate-y-1/2 bg-white/20" />
-          <div className="absolute left-1/2 top-0 h-full w-4 -translate-x-1/2 bg-white/20" />
+    <div className="flex flex-col items-center">
+
+      {/* Floating Hearts */}
+
+      {opened && (
+        <div className="absolute pointer-events-none">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-pink-400 text-2xl"
+              initial={{
+                opacity: 1,
+                scale: 0,
+                x: 0,
+                y: 0,
+              }}
+              animate={{
+                opacity: 0,
+                scale: 1.3,
+                x: (Math.random() - 0.5) * 250,
+                y: -200 - Math.random() * 80,
+              }}
+              transition={{
+                duration: 1.5,
+              }}
+            >
+              ❤️
+            </motion.div>
+          ))}
         </div>
-        <span className="text-xs uppercase tracking-[0.35em] text-white/50">{revealLabel}</span>
-      </button>
+      )}
 
-      <div className="mt-5 text-center">
-        <h3 className="text-2xl font-semibold">{title}</h3>
-        <p className="mt-2 text-sm leading-6 text-white/65">{message}</p>
-        {isOpen && (
-          <p className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-cyan-100">
-            The box is open. Keep the surprise going.
-          </p>
-        )}
-      </div>
-    </section>
-  )
+      <motion.button
+        onClick={handleClick}
+        whileHover={{
+          scale: 1.08,
+        }}
+        whileTap={{
+          scale: .95,
+        }}
+        animate={
+          opened
+            ? {
+                scale: [1, 1.15, 1],
+              }
+            : {
+                y: [0, -12, 0],
+              }
+        }
+        transition={{
+          duration: 2,
+          repeat: opened ? 0 : Infinity,
+        }}
+        className="relative"
+      >
+
+        {/* Glow */}
+
+        <div className="absolute inset-0 rounded-full blur-3xl bg-pink-500/30 scale-150" />
+
+        {/* Lid */}
+
+        <motion.div
+          animate={
+            opened
+              ? {
+                  rotateX: -120,
+                  y: -30,
+                }
+              : {}
+          }
+          transition={{
+            duration: .7,
+          }}
+          className="
+          absolute
+          -top-3
+          left-0
+          w-40
+          h-10
+          rounded-xl
+          bg-gradient-to-r
+          from-pink-500
+          via-fuchsia-500
+          to-violet-600
+          z-20
+          origin-bottom
+          "
+        />
+
+        {/* Box */}
+
+        <div
+          className="
+          relative
+          w-40
+          h-40
+          rounded-2xl
+          bg-gradient-to-br
+          from-pink-500
+          via-fuchsia-600
+          to-violet-700
+          shadow-[0_0_70px_rgba(236,72,153,.45)]
+          overflow-hidden
+          "
+        >
+          {/* Ribbon */}
+
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-4 h-full bg-white/40" />
+
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 h-4 w-full bg-white/40" />
+
+          {/* Gift Icon */}
+
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Gift
+              size={60}
+              className="text-white drop-shadow-xl"
+            />
+          </div>
+        </div>
+      </motion.button>
+
+      <motion.p
+        animate={{
+          opacity: [1, .5, 1],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+        }}
+        className="mt-8 text-pink-300 tracking-widest uppercase text-sm"
+      >
+        Tap the Gift
+      </motion.p>
+
+    </div>
+  );
 }
-
-export default GiftBox
