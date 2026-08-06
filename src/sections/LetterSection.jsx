@@ -6,46 +6,57 @@ const LETTER = `Dear,
 
 Happy Birthday! 🎂
 
-Today is your day.
+Today is all about you.
 
-And instead of sending just another birthday message...
+Instead of sending another birthday message...
 
-I wanted to create something that would stay with you a little longer.
+I wanted to create something
+that you could remember.
 
+Every click.
 Every animation.
-Every colour.
 Every little detail.
 
-Was chosen while thinking about one person...
+Was created with one hope...
 
-You.
+To make you smile.
 
 Maybe this isn't the biggest gift.
 
-Maybe it isn't the most expensive one either.
+Maybe it isn't the most expensive one.
 
-But I can promise you one thing—
+But it's definitely one of a kind.
 
-No one else in this world has this website.
+Because this little website
+exists for one reason...
 
-It exists only because you do.
+You.
 
-I hope today gives you countless reasons to smile.
+I hope today brings you
+lots of laughter,
+beautiful memories,
+and countless reasons to smile.
 
-And if this tiny website manages to make you smile even once...
+And if, even for a moment,
+this made your day a little brighter...
 
-then I'll consider it my best project ever.
+then every hour spent creating it
+was completely worth it.
 
-Happy Birthday once again.
+Never stop dreaming.
 
-Stay happy.
-Stay healthy.
-Stay exactly the way you are.`;
+Never stop believing in yourself.
 
+And please...
+
+keep that beautiful smile.
+
+Happy Birthday once again. ❤️`;
 export default function LetterSection() {
   const [text, setText] = useState("");
   const [startTyping, setStartTyping] = useState(false);
   const started = useRef(false);
+  const floatingItems = ["🎈", "🎉", "🎊", "✨", "⭐", "🎁", "🎂", "💖"];
 
   useEffect(() => {
     if (!startTyping) return;
@@ -78,26 +89,27 @@ export default function LetterSection() {
 
       {/* Floating Sparkles */}
 
-      {[...Array(20)].map((_, i) => (
+      {[...Array(10)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-pink-300"
+          className="absolute text-2xl"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${10 + Math.random() * 80}%`,
+            bottom: "-30px",
           }}
           animate={{
-            y: [-20, -120],
+            y: [-20, -850],
             opacity: [0, 1, 0],
-            rotate: [0, 180],
+            x: [0, Math.random() * 60 - 30],
+            rotate: [0, 20, -20, 0],
           }}
           transition={{
-            duration: 6 + Math.random() * 4,
+            duration: 9 + Math.random() * 4,
             repeat: Infinity,
             delay: Math.random() * 5,
           }}
         >
-          ✨
+          {floatingItems[Math.floor(Math.random() * floatingItems.length)]}
         </motion.div>
       ))}
 
@@ -159,12 +171,12 @@ export default function LetterSection() {
           </div>
 
           <p className="text-right text-sm italic opacity-70 mb-4">
-            4 August 2026
+            15 August 2026
           </p>
 
           <div
             className="whitespace-pre-wrap leading-5 text-[18px] font-serif"
-            style={{  fontFamily: "Caveat Brush" }} 
+            style={{ fontFamily: "Caveat Brush" }}
           >
             {text}
 
@@ -180,12 +192,12 @@ export default function LetterSection() {
               transition={{ delay: .5 }}
               className="mt-5 text-right"
             >
-              <p className="italic text-lg font" style={{  fontFamily: "Caveat Brush" }} >
+              <p className="italic text-lg font" style={{ fontFamily: "Caveat Brush" }} >
                 With lots of love,
               </p>
 
-              <h3 className="text-3xl font-bold mt-2" style={{  fontFamily: "Caveat Brush" }} >
-                Lavish Todiwal❤️
+              <h3 className="text-3xl font-bold mt-2" style={{ fontFamily: "Caveat Brush" }} >
+                Lavish Todiwal
               </h3>
             </motion.div>
           )}

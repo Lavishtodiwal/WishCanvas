@@ -70,18 +70,22 @@ export const memories = {
       label: 'Photo 01',
       title: 'Polaroid of the day',
       caption: 'A place for the photo that best defines the celebration.',
+      imgUrl:'https://images.pexels.com/photos/32080246/pexels-photo-32080246.jpeg',
       gradient: 'from-cyan-400/70 via-sky-500/60 to-slate-900',
     },
     {
       label: 'Photo 02',
       title: 'Confetti corner',
       caption: 'The moment when the room gets loud and happy.',
+      imgUrl:'https://images.pexels.com/photos/32080246/pexels-photo-32080246.jpeg',
       gradient: 'from-fuchsia-400/70 via-violet-500/60 to-slate-900',
+      
     },
     {
       label: 'Photo 03',
       title: 'Message wall',
       caption: 'A collage of notes, wishes, and tiny reminders that they matter.',
+      imgUrl:'https://images.pexels.com/photos/32080246/pexels-photo-32080246.jpeg',
       gradient: 'from-amber-300/70 via-rose-400/60 to-slate-900',
     },
   ],

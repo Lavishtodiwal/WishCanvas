@@ -26,16 +26,16 @@ function App() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-950 text-white">
-      <Navbar links={memories.navLinks} brand={memories.brand} />
+      <Navbar />
 
       <main>
-        <EntrySection data={memories.entry} />
-        <WelcomeSection data={memories.welcome} memories={memories.memories} />
-        <TimelineSection data={memories.timeline} />
-        <GallerySection data={memories.gallery} />
-        <LetterSection data={memories.letter} />
+        <EntrySection/>
+        <WelcomeSection/>
+        <TimelineSection/>
+        <GallerySection/>
+        <LetterSection/>
+        <FinalSection/>
         <SurpriseSection data={memories.surprise} tracks={memories.music} />
-        <FinalSection data={memories.finalMessage} />
       </main>
     </div>
   )

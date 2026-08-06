@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, ArrowDown } from "lucide-react";
 import styled from "styled-components";
-
+import emoji1 from "../assets/emoji4.gif";
 export default function WelcomeScreen({ onStart }) {
   return (
     <Wrapper>
@@ -15,7 +15,7 @@ export default function WelcomeScreen({ onStart }) {
 
           <motion.div
             animate={{
-              scale: [1, 1.08, 1],
+              scale: [2, 2.08, 2],
               rotate: [0, 6, -6, 0],
             }}
             transition={{
@@ -24,78 +24,57 @@ export default function WelcomeScreen({ onStart }) {
             }}
             className="icon"
           >
-            <Sparkles size={34} />
+            <img src={emoji1} alt="img" />
           </motion.div>
 
-          <h1>
-            Welcome...
-          </h1>
+          <h1>A Little Surprise... ✨</h1>
 
-          <div className="content">
+<p>Hi! 👋</p>
 
-            <p>Hi, 👋</p>
+<p className="highlight">
+  Congratulations! 🎉
+</p>
 
-            <p>
-              If you're reading this...
-            </p>
+<p>
+  You've just unlocked
+  <br />
+  something made
+  <br />
+  especially for you.
+</p>
 
-            <p className="highlight">
-              Congratulations 🎉
-            </p>
+<p>
+  Every scroll
+  <br />
+  reveals a new surprise.
+</p>
 
-            <p>
-              You've just unlocked one of the most
-              special projects I've ever made.
-            </p>
+<p>
+  And hopefully...
+  <br />
+  one more reason
+  <br />
+  to smile.
+</p>
 
-            <p>
-              This isn't just another website.
-            </p>
+<p className="you">
+  Ready? ❤️
+</p>        <motion.button
+          whileHover={{
+            scale: 1.05,
+          }}
+          whileTap={{
+            scale: 0.96,
+          }}
+          onClick={onStart}
+        >
+         Let's Begin ✨
+          <ArrowDown size={18} />
+        </motion.button>
 
-            <p>
-              Every animation,
-              <br />
-              every colour,
-              <br />
-              every little detail,
-            </p>
-
-            <p>
-              was chosen while thinking about
-            </p>
-
-            <p className="you">
-              You. ❤️
-            </p>
-
-            <p>
-              So...
-              <br />
-              Sit back,
-              <br />
-              Smile a little,
-              <br />
-              and enjoy your birthday surprise.
-            </p>
-
-          </div>
-
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{
-              scale: 0.96,
-            }}
-            onClick={onStart}
-          >
-            Let's Go
-            <ArrowDown size={18} />
-          </motion.button>
-
-        </div>
-      </motion.div>
-    </Wrapper>
+      </div>
+    </motion.div>
+    </Wrapper >
   );
 }
 
@@ -140,9 +119,6 @@ const Wrapper = styled.div`
     width:70px;
     height:70px;
     margin:auto;
-    border-radius:50%;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.1);
     display:flex;
     justify-content:center;
     align-items:center;

@@ -114,19 +114,6 @@ export default function EntrySection() {
           of your day?
         </motion.p>
 
-        {/* Text 2 */}
-        <motion.p
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-8 text-gray-300 leading-8"
-        >
-          I couldn't find the perfect gift...
-          <br />
-          so I made something instead.
-        </motion.p>
-
         {/* Text 3 */}
         <motion.p
           initial={{ opacity: 0, y: 35 }}
@@ -145,7 +132,7 @@ export default function EntrySection() {
           duration: 1.5,
           repeat: Infinity,
         }}
-        className="absolute bottom-8 -translate-x-1/2 flex flex-col items-center"
+        className="absolute bottom-14 -translate-x-1/2 flex flex-col items-center"
       >
         <ChevronDown size={30} className="text-pink-400" />
         <p className="mt-1 text-xs tracking-[0.35em] uppercase text-pink-300">
