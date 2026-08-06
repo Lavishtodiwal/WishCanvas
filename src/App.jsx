@@ -8,14 +8,14 @@ import GallerySection from './sections/GallerySection.jsx'
 import LetterSection from './sections/LetterSection.jsx'
 import SurpriseSection from './sections/SurpriseSection.jsx'
 import FinalSection from './sections/FinalSection.jsx'
-import { memories } from './data/memories.js'
+// import { memories } from './data/memories.js'
 import './App.css'
 
 function App() {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIsReady(true), 350)
+    const timer = window.setTimeout(() => setIsReady(true), 1000) // 97seconds
 
     return () => window.clearTimeout(timer)
   }, [])
@@ -29,13 +29,13 @@ function App() {
       <Navbar />
 
       <main>
-        <EntrySection/>
-        <WelcomeSection/>
-        <TimelineSection/>
-        <GallerySection/>
-        <LetterSection/>
-        <FinalSection/>
-        <SurpriseSection data={memories.surprise} tracks={memories.music} />
+        {/* <EntrySection/> */}
+        {/* <WelcomeSection/> */}
+        {/* <TimelineSection/> */}
+        {/* <GallerySection/> */}
+        {/* <LetterSection/> */}
+        {/* <FinalSection/> */}
+        <SurpriseSection/>
       </main>
     </div>
   )

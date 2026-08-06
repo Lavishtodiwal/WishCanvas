@@ -1,111 +1,72 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
+import { AnimatePresence, motion } from "framer-motion";
 import GiftBox from "../components/GiftBox";
-import Fireworks from "../components/Fireworks";
-import BirthdayCake from "../components/BirthdayCake";
-import FinalMessage from "../components/FinalMessage";
+import finalVideo from "../assets/intro.mp4";
 
 export default function SurpriseSection() {
-  const [opened, setOpened] = useState(false);
+  const [playVideo, setPlayVideo] = useState(false);
+  const [showThanks, setShowThanks] = useState(false);
+
+  const handleVideoEnd = () => {
+    setShowThanks(true);
+
+    setTimeout(() => {
+      setShowThanks(false);
+      setPlayVideo(false);
+    }, 2500);
+  };
 
   return (
-    <section
-      id="surprise"
-      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center px-6 text-white"
-    >
-      {/* Background */}
+    <section className="relative min-h-screen flex items-center justify-center">
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#09090F] via-[#111827] to-[#09090F]" />
-
-      <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-pink-500/20 blur-[120px]" />
-
-      <div className="absolute bottom-10 right-10 w-72 h-72 rounded-full bg-violet-500/20 blur-[120px]" />
-
-      {/* Heading */}
-
-      {!opened && (
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative z-20 text-center mb-16"
-        >
-          <p className="uppercase tracking-[0.4em] text-pink-300 text-sm">
-            One Last Surprise
-          </p>
-
-          <h2 className="mt-4 text-4xl md:text-6xl font-bold">
-            I've saved the best
-            <br />
-            for the very end.
-          </h2>
-
-          <p className="mt-6 text-white/70 max-w-md mx-auto leading-7">
-            Tap the gift below...
-            <br />
-            and let the magic begin.
-          </p>
-        </motion.div>
+      {!playVideo && (
+        <GiftBox onOpen={() => setPlayVideo(true)} />
       )}
 
-      {/* Gift */}
-
-      <div className="relative z-20">
-        <GiftBox onOpen={() => setOpened(true)} />
-      </div>
-
-      {/* Celebration */}
-
       <AnimatePresence>
-        {opened && (
-          <>
-            <Fireworks />
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
-            />
+        {playVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: .8 }}
+            className="fixed inset-0 z-50 bg-black"
+          >
 
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.8,
-                y: 80,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.8,
-              }}
-              className="fixed inset-0 z-40 flex items-center justify-center px-5"
+            <video
+              className="w-full h-full object-contain"
+              autoPlay
+              playsInline
+              controls={false}
+              onEnded={handleVideoEnd}
             >
-              <BirthdayCake />
-            </motion.div>
+              <source src={finalVideo} type="video/mp4" />
+            </video>
 
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 80,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 5,
-              }}
-              className="fixed bottom-10 left-0 right-0 z-50 flex justify-center"
-            >
-              <FinalMessage />
-            </motion.div>
-          </>
+            {showThanks && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="absolute inset-0 flex items-center justify-center bg-black"
+              >
+                <div className="text-center">
+                  <h1 className="text-5xl font-bold text-white">
+                    Thank You ❤️
+                  </h1>
+
+                  <p className="mt-4 text-white/70">
+                    Happy Birthday ✨
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
+          </motion.div>
         )}
+
       </AnimatePresence>
+
     </section>
   );
 }
