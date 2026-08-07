@@ -1,65 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* * {
-  box-sizing: border-box;
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #010B13;
-} */
-
-.stars {
-  background-image:
-    radial-gradient(white 1px, transparent 1px),
-    radial-gradient(white 1px, transparent 1px),
-    radial-gradient(white 2px, transparent 2px);
-
-  background-size:
-    180px 180px,
-    260px 260px,
-    320px 320px;
-
-  background-position:
-    0 0,
-    40px 60px,
-    130px 120px;
-
-  animation: twinkle 8s linear infinite;
-  opacity: .7;
+  overflow-x: hidden;
+  background: #09090f;
+  color: white;
 }
 
-@keyframes twinkle {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-30px);
-  }
-}
-
-.swiper-slide {
-  transition: all 0.5s ease;
-  opacity: 0.45;
-  filter: blur(3px);
-  transform: scale(0.82);
-}
-
-.swiper-slide-active {
-  opacity: 1;
-  filter: blur(0);
-  transform: scale(1);
-  z-index: 20;
-}
-
-.swiper-slide-prev,
-.swiper-slide-next {
-  opacity: 0.8;
-  filter: blur(1px);
-  transform: scale(0.9);
+body {
+  background: linear-gradient(
+    180deg,
+    #09090f 0%,
+    #111827 50%,
+    #050816 100%
+  );
 }

@@ -1,10 +1,22 @@
-import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, ArrowDown } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import styled from "styled-components";
+
 import emoji1 from "../assets/emoji4.gif";
+import introVideo from "../assets/gift.mp4";
+
 export default function WelcomeScreen({ onStart }) {
+  const [playIntro, setPlayIntro] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
+  const handleVideoEnd = () => {
+    setPlayIntro(false);
+    onStart();
+  };
+
   return (
     <Wrapper>
+      {/* Welcome Card */}
       <motion.div
         className="card"
         initial={{ opacity: 0, scale: 0.9 }}
@@ -12,7 +24,6 @@ export default function WelcomeScreen({ onStart }) {
         transition={{ duration: 0.8 }}
       >
         <div className="card2">
-
           <motion.div
             animate={{
               scale: [2, 2.08, 2],
@@ -24,172 +35,252 @@ export default function WelcomeScreen({ onStart }) {
             }}
             className="icon"
           >
-            <img src={emoji1} alt="img" />
+            <img src={emoji1} alt="emoji" />
           </motion.div>
 
           <h1>A Little Surprise... ✨</h1>
 
-<p>Hi! 👋</p>
+          <div className="content">
 
-<p className="highlight">
-  Congratulations! 🎉
-</p>
+            <p>Hi! 👋</p>
 
-<p>
-  You've just unlocked
-  <br />
-  something made
-  <br />
-  especially for you.
-</p>
+            <p className="highlight">
+              Congratulations! 🎉
+            </p>
 
-<p>
-  Every scroll
-  <br />
-  reveals a new surprise.
-</p>
+            <p>
+              You've just unlocked
+              <br />
+              something made
+              <br />
+              especially for you.
+            </p>
 
-<p>
-  And hopefully...
-  <br />
-  one more reason
-  <br />
-  to smile.
-</p>
+            <p>
+              Every scroll...
+              <br />
+              reveals a new surprise.
+            </p>
 
-<p className="you">
-  Ready? ❤️
-</p>        <motion.button
-          whileHover={{
-            scale: 1.05,
-          }}
-          whileTap={{
-            scale: 0.96,
-          }}
-          onClick={onStart}
-        >
-         Let's Begin ✨
-          <ArrowDown size={18} />
-        </motion.button>
+            <p>
+              Every little detail
+              <br />
+              was created with care.
+            </p>
 
-      </div>
-    </motion.div>
-    </Wrapper >
+            <p className="you">
+              So...
+              <br />
+              enjoy the journey.
+            </p>
+
+            <p>
+              And hopefully...
+              <br />
+              one more reason
+              <br />
+              to smile.
+            </p>
+
+            <p className="highlight">
+              Ready? ❤️
+            </p>
+
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              setShowTransition(true);
+
+              setTimeout(() => {
+                setShowTransition(false);
+                setPlayIntro(true);
+              }, 3500);
+            }}
+          >
+            Open Your Gift 🎁
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* Intro Video */}
+      <AnimatePresence>
+        {playIntro && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="fixed inset-0 z-[9999] bg-black flex items-center justify-center"
+          >
+            <video
+              className="h-[100vh] w-auto object-contain"
+              autoPlay
+              playsInline
+              controls={false}
+              controlsList="nodownload noplaybackrate"
+              disablePictureInPicture
+              onContextMenu={(e) =>
+                e.preventDefault()
+              }
+              onEnded={handleVideoEnd}
+            >
+              <source src={introVideo} type="video/mp4" />
+            </video>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showTransition && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black px-6"
+          >
+            <div className="text-center max-w-xl">
+
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-4xl md:text-5xl font-bold text-white"
+              >
+                Before We Begin... 😇
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="mt-8 text-lg md:text-xl leading-8 text-white/80"
+              >
+                Every smile...
+                <br />
+                starts with a little surprise.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.8 }}
+                className="mt-8 text-pink-300 text-xl font-medium"
+              >
+                Here's something...
+                <br />
+                just for you.
+              </motion.p>
+
+              <motion.div
+                animate={{ opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="mt-12 text-5xl"
+              >
+                🎁✨
+              </motion.div>
+
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:24px;
-  background:#07070d;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: #07070d;
 
-  .card{
-    width:360px;
-    background-image:linear-gradient(
+  .card {
+    width: 360px;
+    background-image: linear-gradient(
       163deg,
       #ff4fae,
       #8b5cf6,
       #3b82f6
     );
-    border-radius:24px;
-    padding:2px;
-    transition:.4s;
+    border-radius: 24px;
+    padding: 2px;
+    transition: 0.4s;
   }
 
-  .card:hover{
-    box-shadow:0 0 45px rgba(255,79,174,.35);
+  .card:hover {
+    box-shadow: 0 0 45px rgba(255, 79, 174, 0.35);
   }
 
-  .card2{
-    background:#111114;
-    border-radius:22px;
-    padding:28px 24px;
-    transition:.3s;
-    text-align:center;
+  .card2 {
+    background: #111114;
+    border-radius: 22px;
+    padding: 28px 24px;
+    text-align: center;
   }
 
-  .card:hover .card2{
-    transform:scale(.985);
+  .icon {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .icon{
-    width:70px;
-    height:70px;
-    margin:auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#ff71b8;
-    margin-bottom:20px;
+  .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
-  h1{
-    color:white;
-    font-size:2rem;
-    margin-bottom:20px;
-    font-weight:700;
+  h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 700;
   }
 
-  .content{
-    color:#cfcfcf;
-    line-height:1.8;
-    font-size:15px;
+  .content {
+    color: #cfcfcf;
+    line-height: 1.8;
+    font-size: 15px;
   }
 
-  .content p{
-    margin-bottom:14px;
+  .highlight {
+    color: #ff71b8;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 16px;
   }
 
-  .highlight{
-    color:#ff71b8;
-    font-weight:700;
-    font-size:18px;
+  button {
+    margin-top: 30px;
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff4fae, #8b5cf6);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
   }
 
-  .you{
-    color:white;
-    font-size:22px;
-    font-weight:700;
-  }
-
-  button{
-    margin-top:30px;
-    width:100%;
-    height:52px;
-    border:none;
-    border-radius:999px;
-    background:linear-gradient(
-      135deg,
-      #ff4fae,
-      #8b5cf6
-    );
-    color:white;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    transition:.3s;
-  }
-
-  button:hover{
-    transform:translateY(-2px);
-  }
-
-  @media(max-width:420px){
-
-    .card{
-      width:100%;
+  @media (max-width: 420px) {
+    .card {
+      width: 100%;
     }
 
-    .card2{
-      padding:24px 20px;
+    .card2 {
+      padding: 24px 20px;
     }
-
   }
 `;
