@@ -23,7 +23,7 @@ const items = [
     image: doraemonImg,
     title: "Doraemon",
     desc: "Har problem ka solution nahi... par kuch na kuch jugaad zaroor. 😂",
-    size: "col-span-1",
+    size: "col-span-2 md:row-span-2",
     color: "from-cyan-400 to-blue-600",
   },
 
