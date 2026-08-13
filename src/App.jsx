@@ -12,6 +12,7 @@ import FinalSection from "./sections/FinalSection.jsx";
 import SurpriseSection from "./sections/SurpriseSection.jsx";
 
 import "./App.css";
+import VoiceNote from "./components/VoiceNot.jsx";
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -47,6 +48,7 @@ if (!authenticated) {
         <LetterSection />
         <FinalSection />
         <SurpriseSection />
+        <VoiceNote />
       </main>
     </div>
   );

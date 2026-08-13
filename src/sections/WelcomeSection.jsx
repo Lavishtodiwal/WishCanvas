@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import styled from "styled-components";
 
 import emoji1 from "../assets/emoji4.gif";
@@ -9,9 +8,14 @@ import introVideo from "../assets/gift.mp4";
 export default function WelcomeScreen({ onStart }) {
   const [playIntro, setPlayIntro] = useState(false);
   const [showTransition, setShowTransition] = useState(false);
+
   const handleVideoEnd = () => {
     setPlayIntro(false);
     onStart();
+  };
+
+  const handleOpenGift = () => {
+    setShowTransition(true);
   };
 
   return (
@@ -41,13 +45,8 @@ export default function WelcomeScreen({ onStart }) {
           <h1>A Little Surprise... ✨</h1>
 
           <div className="content">
-
             <p>Hi! 👋</p>
-
-            <p className="highlight">
-              Congratulations! 🎉
-            </p>
-
+            <p className="highlight">Congratulations! 🎉</p>
             <p>
               You've just unlocked
               <br />
@@ -55,50 +54,35 @@ export default function WelcomeScreen({ onStart }) {
               <br />
               especially for you.
             </p>
-
             <p>
               Every scroll...
               <br />
               reveals a new surprise.
             </p>
-
             <p>
               Every little detail
               <br />
               was created with care.
             </p>
-
             <p className="you">
               So...
               <br />
               enjoy the journey.
             </p>
-
             <p>
               And hopefully...
               <br />
               one more reason
               <br />
-              to smile.
+              to smile. 
             </p>
-
-            <p className="highlight">
-              Ready? ❤️
-            </p>
-
+            <p className="highlight">Ready? ❤️</p>
           </div>
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              setShowTransition(true);
-
-              setTimeout(() => {
-                setShowTransition(false);
-                setPlayIntro(true);
-              }, 3500);
-            }}
+            onClick={handleOpenGift}
           >
             Open Your Gift 🎁
           </motion.button>
@@ -116,15 +100,14 @@ export default function WelcomeScreen({ onStart }) {
             className="fixed inset-0 z-[9999] bg-black flex items-center justify-center"
           >
             <video
-              className="h-[100vh] w-auto object-contain"
+              className="h-[100vh] w-auto object-contain pointer-events-none"
               autoPlay
               playsInline
               controls={false}
               controlsList="nodownload noplaybackrate"
               disablePictureInPicture
-              onContextMenu={(e) =>
-                e.preventDefault()
-              }
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
               onEnded={handleVideoEnd}
             >
               <source src={introVideo} type="video/mp4" />
@@ -132,60 +115,96 @@ export default function WelcomeScreen({ onStart }) {
           </motion.div>
         )}
       </AnimatePresence>
+
       <AnimatePresence>
         {showTransition && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black px-6"
-          >
-            <div className="text-center max-w-xl">
-
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-4xl md:text-5xl font-bold text-white"
-              >
-                Before We Begin... 😇
-              </motion.h2>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="mt-8 text-lg md:text-xl leading-8 text-white/80"
-              >
-                Every smile...
-                <br />
-                starts with a little surprise.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.8 }}
-                className="mt-8 text-pink-300 text-xl font-medium"
-              >
-                Here's something...
-                <br />
-                just for you.
-              </motion.p>
-
-              <motion.div
-                animate={{ opacity: [0.4, 1, 0.4] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="mt-12 text-5xl"
-              >
-                🎁✨
-              </motion.div>
-
-            </div>
-          </motion.div>
+          <TransitionScreen
+            onDone={() => {
+              setShowTransition(false);
+              setPlayIntro(true);
+            }}
+          />
         )}
       </AnimatePresence>
     </Wrapper>
+  );
+}
+
+function TransitionScreen({ onDone }) {
+  const [canContinue, setCanContinue] = useState(false);
+
+  useEffect(() => {
+    const revealDelay = 1800; // when the last line appears
+    const readPause = 2200;   // time to actually read it
+    const t = setTimeout(() => setCanContinue(true), revealDelay);
+    const auto = setTimeout(onDone, revealDelay + readPause);
+    return () => {
+      clearTimeout(t);
+      clearTimeout(auto);
+    };
+  }, [onDone]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black px-6 cursor-pointer"
+      onClick={() => canContinue && onDone()}
+    >
+      <div className="text-center max-w-xl">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-4xl md:text-5xl font-bold text-white"
+        >
+          Before We Begin... 😇
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-8 text-lg md:text-xl leading-8 text-white/80"
+        >
+          Every smile...
+          <br />
+          starts with a little surprise.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8 }}
+          className="mt-8 text-pink-300 text-xl font-medium"
+        >
+          Here's something...
+          <br />
+          just for you.
+        </motion.p>
+
+        <motion.div
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="mt-12 text-5xl"
+        >
+          🎁✨
+        </motion.div>
+
+        <AnimatePresence>
+          {canContinue && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-8 text-white/30 text-xs tracking-widest uppercase"
+            >
+              tap to continue
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 }
 
