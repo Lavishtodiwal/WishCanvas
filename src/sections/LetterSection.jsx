@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-const LETTER = `Dear,
+const LETTER = `My Daring Girl,
 
 Happy Birthday! 🎂
 
@@ -52,22 +52,34 @@ And please...
 keep that beautiful smile.
 
 Happy Birthday once again. ❤️`;
+
+const FLOATING_ITEMS = ["🎈", "🎉", "🎊", "✨", "⭐", "🎁", "🎂", "💖"];
+
 export default function LetterSection() {
   const [text, setText] = useState("");
   const [startTyping, setStartTyping] = useState(false);
   const started = useRef(false);
-  const floatingItems = ["🎈", "🎉", "🎊", "✨", "⭐", "🎁", "🎂", "💖"];
+
+  // Roll sparkle positions ONCE, not on every render/keystroke.
+  const sparkles = useMemo(
+    () =>
+      Array.from({ length: 10 }, () => ({
+        left: 10 + Math.random() * 80,
+        drift: Math.random() * 60 - 30,
+        duration: 9 + Math.random() * 4,
+        delay: Math.random() * 5,
+        emoji: FLOATING_ITEMS[Math.floor(Math.random() * FLOATING_ITEMS.length)],
+      })),
+    []
+  );
 
   useEffect(() => {
     if (!startTyping) return;
 
     let index = 0;
-
     const timer = setInterval(() => {
       index++;
-
       setText(LETTER.slice(0, index));
-
       if (index >= LETTER.length) {
         clearInterval(timer);
       }
@@ -82,91 +94,53 @@ export default function LetterSection() {
       className="relative min-h-screen flex items-center justify-center px-5 py-14 overflow-hidden"
     >
       {/* Background Glow */}
-
       <div className="absolute top-0 left-0 w-72 h-72 rounded-full bg-pink-500/10 blur-[120px]" />
-
       <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-violet-500/10 blur-[120px]" />
 
-      {/* Floating Sparkles */}
-
-      {[...Array(10)].map((_, i) => (
+      {/* Floating Sparkles — positions fixed once via useMemo above */}
+      {sparkles.map((s, i) => (
         <motion.div
           key={i}
           className="absolute text-2xl"
-          style={{
-            left: `${10 + Math.random() * 80}%`,
-            bottom: "-30px",
-          }}
+          style={{ left: `${s.left}%`, bottom: "-30px" }}
           animate={{
             y: [-20, -850],
             opacity: [0, 1, 0],
-            x: [0, Math.random() * 60 - 30],
+            x: [0, s.drift],
             rotate: [0, 20, -20, 0],
           }}
           transition={{
-            duration: 9 + Math.random() * 4,
+            duration: s.duration,
             repeat: Infinity,
-            delay: Math.random() * 5,
+            delay: s.delay,
           }}
         >
-          {floatingItems[Math.floor(Math.random() * floatingItems.length)]}
+          {s.emoji}
         </motion.div>
       ))}
 
       {/* Letter */}
-
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 80,
-          rotate: -4,
-          scale: 0.95,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-          rotate: -1,
-          scale: 1,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.35,
-        }}
+        initial={{ opacity: 0, y: 80, rotate: -4, scale: 0.95 }}
+        whileInView={{ opacity: 1, y: 0, rotate: -1, scale: 1 }}
+        viewport={{ once: true, amount: 0.35 }}
         onViewportEnter={() => {
           if (!started.current) {
             started.current = true;
             setStartTyping(true);
           }
         }}
-        transition={{
-          duration: 1,
-        }}
-        className="
-        relative
-        z-10
-        w-full
-        max-w-2xl
-        rounded-xl
-        bg-[#F7EFD8]
-        p-8
-        md:p-12
-        shadow-[0_30px_70px_rgba(0,0,0,.4)]
-        border
-        border-[#d7c4a4]
-        text-[#3d2b1f]
-        "
+        transition={{ duration: 1 }}
+        className="relative z-10 w-full max-w-2xl rounded-xl bg-[#F7EFD8] p-8 md:p-12 shadow-[0_30px_70px_rgba(0,0,0,.4)] border border-[#d7c4a4] text-[#3d2b1f]"
       >
         {/* Paper Texture */}
-
         <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle,#000_1px,transparent_1px)] bg-[length:18px_18px]" />
 
         <div className="relative">
-
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-3xl md:text-5xl font-serif font-bold">
               💌 A Letter For You
             </h2>
-
             <Sparkles className="text-pink-500" />
           </div>
 
@@ -179,7 +153,6 @@ export default function LetterSection() {
             style={{ fontFamily: "Caveat Brush" }}
           >
             {text}
-
             {text.length < LETTER.length && (
               <span className="animate-pulse font-bold">|</span>
             )}
@@ -189,14 +162,13 @@ export default function LetterSection() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: .5 }}
+              transition={{ delay: 0.5 }}
               className="mt-5 text-right"
             >
-              <p className="italic text-lg font" style={{ fontFamily: "Caveat Brush" }} >
+              <p className="italic text-lg" style={{ fontFamily: "Caveat Brush" }}>
                 With lots of love,
               </p>
-
-              <h3 className="text-3xl font-bold mt-2" style={{ fontFamily: "Caveat Brush" }} >
+              <h3 className="text-3xl font-bold mt-2" style={{ fontFamily: "Caveat Brush" }}>
                 Lavish Todiwal
               </h3>
             </motion.div>
