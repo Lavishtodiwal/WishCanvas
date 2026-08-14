@@ -75,7 +75,7 @@ export default function VoiceNote({ onNext }) {
           {/* Audio */}
           <audio
             ref={audioRef}
-            src="https://www.image2url.com/r2/default/audio/1786619777921-38cbd576-02a9-4eb3-811e-e2ffeaf417ca.mp3"
+            src="https://res.cloudinary.com/dxaadzj0s/video/upload/v1786711794/voice_note_xoav9e.m4a"
             onEnded={handleEnded}
             preload="metadata"
           />
