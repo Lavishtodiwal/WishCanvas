@@ -13,7 +13,7 @@ const images = [
   "https://res.cloudinary.com/dxaadzj0s/image/upload/v1786295794/20260427_202257_wmrb6f.jpg",
   "https://res.cloudinary.com/dxaadzj0s/image/upload/v1786298088/Snapchat-1903188382_2_yz0mbn.jpg",
   "https://res.cloudinary.com/dxaadzj0s/image/upload/v1786297271/IMG-20260806-WA0014_jtbyup.jpg",
-
+"https://res.cloudinary.com/dxaadzj0s/image/upload/v1786295787/9215_ay8y7q.jpg",
   "https://res.cloudinary.com/dxaadzj0s/image/upload/v1786297271/IMG-20260806-WA0010_hbzza3.jpg",
 ];
 
