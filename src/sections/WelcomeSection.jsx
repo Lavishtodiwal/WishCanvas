@@ -74,18 +74,20 @@ export default function WelcomeScreen({ onStart }) {
               <br />
               one more reason
               <br />
-              to smile. 
+              to smile.
             </p>
             <p className="highlight">Ready? ❤️</p>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleOpenGift}
-          >
-            Open Your Gift 🎁
-          </motion.button>
+          <div className="btn-wrap">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleOpenGift}
+            >
+              Open Your Gift 🎁
+            </motion.button>
+          </div>
         </div>
       </motion.div>
 
@@ -276,8 +278,40 @@ const Wrapper = styled.div`
     margin-top: 16px;
   }
 
-  button {
+  /* Wrapper that hosts the spinning border + glow behind the button */
+  .btn-wrap {
+    position: relative;
     margin-top: 30px;
+    border-radius: 999px;
+    padding: 2px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .btn-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    z-index: 0;
+    background: conic-gradient(
+      from 0deg,
+      #ff4fae,
+      #8b5cf6,
+      #3b82f6,
+      #ff4fae
+    );
+    animation: spin-border 3s linear infinite;
+  }
+
+  @keyframes spin-border {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  button {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 52px;
     border: none;
@@ -291,6 +325,19 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     gap: 10px;
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 15px rgba(255, 79, 174, 0.4),
+        0 0 5px rgba(139, 92, 246, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(255, 79, 174, 0.8),
+        0 0 15px rgba(139, 92, 246, 0.6);
+    }
   }
 
   @media (max-width: 420px) {
