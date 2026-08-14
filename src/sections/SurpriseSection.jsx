@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GiftBox from "../components/GiftBox";
 
-export default function SurpriseSection() {
+export default function SurpriseSection({ onComplete }) {
   const [stage, setStage] = useState("gift"); // gift -> intro -> video -> thanks
   const finalVideo =
     "https://res.cloudinary.com/dxaadzj0s/video/upload/v1786614081/51272_720x1280_rvy0mn.mp4";
@@ -76,7 +76,13 @@ export default function SurpriseSection() {
         )}
 
         {stage === "thanks" && (
-          <ThanksScreen onReplay={() => setStage("gift")} />
+          <ThanksScreen
+            onReplay={() => setStage("gift")}
+            onDone={() => {
+              setStage("done");
+              onComplete?.();
+            }}
+          />
         )}
       </AnimatePresence>
     </section>
@@ -170,7 +176,12 @@ function IntroScreen({ onDone }) {
   );
 }
 
-function ThanksScreen({ onReplay }) {
+function ThanksScreen({ onReplay, onDone }) {
+  useEffect(() => {
+    const autoDone = setTimeout(onDone, 7600);
+    return () => clearTimeout(autoDone);
+  }, [onDone]);
+
   return (
     <motion.div
       key="thanks"

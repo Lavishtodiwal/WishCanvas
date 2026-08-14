@@ -47,7 +47,13 @@ if (!authenticated) {
         <GallerySection />
         <LetterSection />
         <FinalSection />
-        <SurpriseSection />
+        <SurpriseSection
+          onComplete={() =>
+            document
+              .getElementById("voice-note")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+        />
         <VoiceNote />
       </main>
     </div>

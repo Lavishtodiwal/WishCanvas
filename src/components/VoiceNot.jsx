@@ -31,7 +31,10 @@ export default function VoiceNote({ onNext }) {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#09090F] via-[#111827] to-[#050816] flex items-center justify-center px-6">
+    <section
+      id="voice-note"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#09090F] via-[#111827] to-[#050816] flex items-center justify-center px-6"
+    >
       {/* Background glow */}
       <div className="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-pink-500/20 blur-[180px]" />
       <div className="absolute -bottom-32 -right-24 h-96 w-96 rounded-full bg-violet-500/20 blur-[180px]" />
