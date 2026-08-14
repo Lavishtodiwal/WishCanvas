@@ -12,6 +12,8 @@ export default function AuthScreen({ onUnlock }) {
     "daring girl",
     "daring",
     "aalsi",
+    "pgl",
+    "pagal",
   ];
 
   const checkAnswer = () => {
