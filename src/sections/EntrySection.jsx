@@ -136,7 +136,7 @@ export default function EntrySection() {
       >
         <ChevronDown size={30} className="text-pink-400" />
         <p className="mt-1 text-xs tracking-[0.35em] uppercase text-pink-300">
-          Scroll
+          Keep Scrolling
         </p>
       </motion.div>
     </section>
