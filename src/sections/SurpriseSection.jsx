@@ -467,27 +467,6 @@ function ThanksScreen() {
           🌸
         </motion.div>
 
-
-        <motion.p
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            delay: 5,
-          }}
-          className="
-            mt-8
-            text-white/40
-            tracking-[0.35em]
-            uppercase
-          "
-        >
-          — Lavish Todiwal
-        </motion.p>
-
       </div>
     </motion.div>
   );
