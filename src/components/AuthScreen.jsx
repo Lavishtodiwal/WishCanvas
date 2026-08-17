@@ -6,14 +6,7 @@ export default function AuthScreen({ onUnlock }) {
   const [error, setError] = useState("");
 
   const validAnswers = [
-    "timo",
-    "bhoot",
-    "ghost",
-    "daring girl",
-    "daring",
-    "aalsi",
     "pgl",
-    "pagal",
   ];
 
   const checkAnswer = () => {
